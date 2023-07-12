@@ -1,4 +1,5 @@
 #include "include/Xeebo.h"
+#include "include/Event.h"
 #include <SDL2/SDL.h>
 #include <stdexcept>
 #include <string>
@@ -41,16 +42,19 @@ void Game::main_loop(void) {
 
   bool playing = true;
   while (playing) {
-    // Stores the number of ticks at the start of the loop
     frame_start = SDL_GetTicks();
 
-    // handle events
+    // handle events and update state by firing object event handlers
     SDL_PollEvent(&event);
     if (event.type == SDL_QUIT) {
       playing = false;
+    } else switch (event.type) {
+      // TODO implement more event types
+      default:
+        for (const auto game_object : this->game_objects) {
+          game_object.second->handle_event(Event::Frame_Refresh);
+        }
     }
-
-    // update state (todo)
 
     // render game objects
     SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 0);
@@ -60,10 +64,8 @@ void Game::main_loop(void) {
     }
     SDL_RenderPresent(this->renderer);
 
-    // This measures how long this iteration of the loop took
     frame_time = SDL_GetTicks() - frame_start;
 
-    // This keeps us from displaying more frames than 60/Second
     if (frame_delay > frame_time) {
       SDL_Delay(frame_delay - frame_time);
     }

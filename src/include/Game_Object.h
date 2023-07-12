@@ -10,6 +10,7 @@
 namespace Xeebo {
 
 class Game_Object;
+
 struct Action {
   std::function<void(Game_Object *)> execute = [](Game_Object *) { return; };
   Action(void);
@@ -52,10 +53,11 @@ public:
   Game_Object(Texture *texture, SDL_Point initial_position);
   ~Game_Object();
   void on_event(Event event, std::function<void(Game_Object *)> action);
+  void handle_event(Event event);
   void render_self(SDL_Renderer *renderer) const;
   void set_position(SDL_Point new_position);
   void transform_position(int x_axis_amount, int y_axis_amount);
-  //void transform_angle(int amount);
+  void transform_angle(double amount);
 };
 
 } // namespace Xeebo

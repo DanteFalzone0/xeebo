@@ -3,7 +3,7 @@ Header_Files = src/include/Xeebo.h src/include/Game_Object.h src/include/Event.h
 Source_Files = src/main.cpp src/Xeebo.cpp src/Game_Object.cpp
 Object_Files = object_files/Xeebo.o object_files/Game_Object.o
 Main_Executable = main.exe
-Debug = -ggdb -g3 -O0 -DEBUG
+Debug = -ggdb -g3 -O0
 
 $(Object_Files): $(Source_Files) $(Header_Files)
 	$(CC) -c src/Xeebo.cpp -o object_files/Xeebo.o

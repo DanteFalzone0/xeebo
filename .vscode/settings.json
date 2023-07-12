@@ -62,5 +62,6 @@
     "cinttypes": "cpp",
     "map": "cpp"
   },
-  "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
+  "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
+  "C_Cpp.inlayHints.parameterNames.suppressWhenArgumentContainsName": true
 }

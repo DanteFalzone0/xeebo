@@ -51,6 +51,12 @@ void Game_Object::on_event(
   this->event_actions[event] = Action(action);
 }
 
+void Game_Object::handle_event(Event event) {
+  if (this->event_actions.count(event)) {
+    this->event_actions[event].execute(this);
+  }
+}
+
 void Xeebo::Game_Object::render_self(SDL_Renderer *renderer) const {
   if (renderer == nullptr) {
     throw std::runtime_error("Error in `Game_Object::render_self`: renderer is null");
@@ -91,6 +97,17 @@ void Game_Object::set_position(SDL_Point new_position) {
 void Game_Object::transform_position(int x_axis_amount, int y_axis_amount) {
   this->position.x += x_axis_amount;
   this->position.y += y_axis_amount;
+}
+
+void Game_Object::transform_angle(double amount) {
+  this->texture->angle += amount;
+  // Clamp to within 360 degrees
+  while (this->texture->angle > 360.0) {
+    this->texture->angle -= 360.0;
+  }
+  while (this->texture->angle < 0.0) {
+    this->texture->angle += 360.0;
+  }
 }
 
 } // namespace Xeebo
